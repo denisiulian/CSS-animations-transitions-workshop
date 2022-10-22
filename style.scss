@@ -1,9 +1,25 @@
-@import './styles/base.scss';
+@import "./styles/base.scss";
+
+:root {
+  --primary-color: red;
+  --duration: 1s;
+  --easing: cubic-bezier(0.5, 0, 0.5, 1);
+}
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 5vmin;
   background-color: #f4f4f4;
+}
+
+#app {
+  --bg: white;
+
+  &[data-state="loading"] {
+    --bg: orange;
+  }
+
+  background: var(--bg);
 }
 
 a {
@@ -24,8 +40,76 @@ ul {
 }
 
 .ball {
-  height: 5vmin;
-  width: 5vmin;
+  height: 7vmin;
+  width: 7vmin;
+  left: 50vw;
   border-radius: 50%;
   background: radial-gradient(circle at bottom right, #fb2324, #fe932a);
+  background: #fb2324;
+  // animation: slide-right var(--duration) var(--easing) infinite;
+  // transition-property: background-color, transform; // You have to specify which properties you want.
+  //can put all but isn't the best solution
+  // transition-duration: 1s, 3s;
+  // transition-timing-function: linear, ease-in-out;
+  //shorthand
+  //transition: all 2s 0.5 ease-in-out
+
+  // &:hover {
+  //   // scss, otherwise would be .ball:before
+  //   background: blue;
+  //   transform: scale(2);
+  // }
+
+  //animation
+  // animation-name: move-like-a-square;
+  // animation-duration: 3s;
+  // animation-delay: 0.2s;
+  // animation-fill-mode: both;
+  // animation-iteration-count: infinite;
+  // animation-direction: reverse;
+
+  //choreography
+  --duration: 1s;
+  --stagger: 0.5;
+  --interval: calc(var(--duration) - var(--stagger));
+  animation: move-right var(--duration) calc(0.5s * var(--i)) both;
 }
+
+//choreography
+@keyframes move-right {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translateX(10vw);
+  }
+}
+
+.button {
+  appearance: none;
+  background: blue;
+  color: white;
+  font-weight: bold;
+  padding: 2rem;
+  border: none;
+}
+
+// @keyframes move-like-a-square {
+//   0%,
+//   100% {
+//     transform: none;
+//   }
+
+//   25% {
+//     transform: translateX(10vw);
+//   }
+
+//   50% {
+//     transform: translateX(10vw) translateY(10vw);
+//   }
+
+//   75% {
+//     transform: translateX(0) translateY(10vw);
+//   }
+// }

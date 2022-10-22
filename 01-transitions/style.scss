@@ -1,10 +1,12 @@
-@import '../styles/base.scss';
+@import "../styles/base.scss";
 
 :root {
   --color-gray: #8c97b7;
   --color-blue: #1c38f1;
   --color-green: #1fcdb0;
   --input-height: 3rem;
+  --transition-duration: 0.3s;
+  --transition-easing: linear;
 }
 body {
   display: flex;
@@ -22,7 +24,7 @@ body {
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr;
   grid-column-gap: 1rem;
-  grid-template-areas: 'input button';
+  grid-template-areas: "input button";
 
   --color: var(--color-gray);
   &:focus-within {
@@ -37,6 +39,7 @@ body {
   border: 2px solid var(--color);
   border-radius: 0.25rem;
   outline: none;
+  transition: border-color var(--transition-duration) var(--transition-easing);
 }
 
 .ui-button {
@@ -48,6 +51,17 @@ body {
   border-radius: 0.25rem;
   height: var(--input-height);
   background-color: var(--color);
+  transition: background-color, opacity,
+    transform var(--transition-duration) var(--transition-easing);
+
+  &:hover {
+    opacity: 0.75;
+    transform: scale(1.12);
+  }
+
+  &:active {
+    transform: translateX(0.1%) translateY(5%);
+  }
 }
 
 [data-show]:not([data-active]) {
